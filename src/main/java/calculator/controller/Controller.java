@@ -25,16 +25,20 @@ public class Controller {
     private void turnOnCalculator() {
         while (true) {
             try {
-                Separator separator = new Separator();
-                String input = inputView.readInput();
-                List<Integer> numbers = getNumbers(separator, input);
-                long sum = getSum(numbers);
-                outputView.printSumResult(sum);
+                play();
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private void play() {
+        Separator separator = new Separator();
+        String input = inputView.readInput();
+        List<Integer> numbers = getNumbers(separator, input);
+        long sum = getSum(numbers);
+        outputView.printSumResult(sum);
     }
 
     private List<Integer> getNumbers(Separator separator, String input) {

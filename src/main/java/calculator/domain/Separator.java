@@ -11,10 +11,6 @@ public class Separator {
     public static final String DEFAULT_SEPARATOR = ",|:";
     public static String TOTAL_SEPARATOR;
 
-    void setTotalSeparator(String totalSeparator) {
-        TOTAL_SEPARATOR = totalSeparator;
-    }
-
     public String findSeparator(String input) {
         String separator = "";
         Matcher matcher = PATTERN.matcher(input); // 정규식과 일치하면 true
@@ -28,16 +24,20 @@ public class Separator {
     }
 
     private String validateCustomSeparator(String separator) {
-        if (separator.length() > 1) {
-            throw new IllegalArgumentException("커스텀 구분자는 하나의 문자여야 합니다. 다시 입력해 주세요.");
-        }
+        validate(separator);
         if (separator.length() == 1) {
             separator = "|" + separator;
         }
-        if (separator.length() == 0) {
+        return separator;
+    }
+
+    private static void validate(String separator) {
+        if (separator.length() > 1) {
+            throw new IllegalArgumentException("커스텀 구분자는 하나의 문자여야 합니다. 다시 입력해 주세요.");
+        }
+        if (separator.isEmpty()) {
             throw new IllegalArgumentException("커스텀 구분자를 입력하지 않았습니다. 다시 입력해 주세요.");
         }
-        return separator;
     }
 
     public List<Integer> separateNumber(String input) {
@@ -54,7 +54,6 @@ public class Separator {
     }
 
     private static List<Integer> getNumbers(String input) {
-        // NFE 여기로 옮기기!
         List<Integer> intNumbers = new ArrayList<>();
         String[] splitNumbers = input.split(TOTAL_SEPARATOR);
         for (String number : splitNumbers) {
@@ -72,5 +71,9 @@ public class Separator {
             throw new IllegalArgumentException("음수는 계산할 수 없습니다. 자연수만 입력해 주세요.");
         }
         intNumbers.add(parsedInt);
+    }
+
+    private void setTotalSeparator(String totalSeparator) {
+        TOTAL_SEPARATOR = totalSeparator;
     }
 }
