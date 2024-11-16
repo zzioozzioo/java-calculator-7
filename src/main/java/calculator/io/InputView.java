@@ -17,6 +17,8 @@ public class InputView {
 
     public String readInput() {
         writer.write("덧셈할 문자열을 입력해 주세요.\n");
-        return reader.readLine();
+        String input = reader.readLine();
+        validator.validateEmptyInput(input);
+        return input;
     }
 }
