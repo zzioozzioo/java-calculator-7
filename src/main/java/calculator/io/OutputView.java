@@ -13,4 +13,8 @@ public class OutputView {
     public void printSumResult(long sum) {
         writer.write("결과 : " + sum + "\n");
     }
+
+    public void printErrorMessage(String errorMessages) {
+        writer.write(errorMessages);
+    }
 }
