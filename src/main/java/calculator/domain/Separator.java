@@ -16,6 +16,7 @@ public class Separator {
         Matcher matcher = PATTERN.matcher(input); // 정규식과 일치하면 true
         if (matcher.find()) {
             separator = matcher.group(1); // 커스텀 구분자에 해당하는 문자 반환
+
             separator = validateCustomSeparator(separator);
             input = removeWithoutCalculationTarget(input);
         }
@@ -33,10 +34,10 @@ public class Separator {
 
     private static void validate(String separator) {
         if (separator.length() > 1) {
-            throw new IllegalArgumentException("커스텀 구분자는 하나의 문자여야 합니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException("커스텀 구분자는 하나의 문자여야 합니다. 다시 입력해 주세요.\n");
         }
         if (separator.isEmpty()) {
-            throw new IllegalArgumentException("커스텀 구분자를 입력하지 않았습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException("커스텀 구분자를 입력하지 않았습니다. 다시 입력해 주세요.\n");
         }
     }
 
@@ -44,7 +45,7 @@ public class Separator {
         try {
             return getNumbers(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("숫자만 계산할 수 있습니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException("숫자만 계산할 수 있습니다. 다시 입력해 주세요.\n");
         }
     }
 
@@ -53,7 +54,7 @@ public class Separator {
         return input.substring(5);
     }
 
-    private static List<Integer> getNumbers(String input) {
+    private List<Integer> getNumbers(String input) {
         List<Integer> intNumbers = new ArrayList<>();
         String[] splitNumbers = input.split(TOTAL_SEPARATOR);
         for (String number : splitNumbers) {
@@ -62,13 +63,13 @@ public class Separator {
         return intNumbers;
     }
 
-    private static void addValidNumberToList(String number, List<Integer> intNumbers) {
+    private void addValidNumberToList(String number, List<Integer> intNumbers) {
         if (number.trim().isEmpty()) {
             number = "0";
         }
         int parsedInt = Integer.parseInt(number);
         if (parsedInt < 0) {
-            throw new IllegalArgumentException("음수는 계산할 수 없습니다. 자연수만 입력해 주세요.");
+            throw new IllegalArgumentException("음수는 계산할 수 없습니다. 자연수만 입력해 주세요.\n");
         }
         intNumbers.add(parsedInt);
     }
